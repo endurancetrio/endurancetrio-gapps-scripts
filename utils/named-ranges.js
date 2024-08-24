@@ -29,35 +29,12 @@
  */
 
 /**
- * Gets the event's ID specified on the "Dashboard" tab of the associated Google Sheet.
- *
- * @returns the event's ID specified on the "Dashboard" tab of the associated Google Sheet
- */
-function getSelectedEventId() {
-  return SpreadsheetApp.getActive().getRangeByName('ValueEventId').getDisplayValues()[0][0];
-}
-
-/**
  * Gets the event's reference specified on the "Dashboard" tab of the associated Google Sheet.
  *
  * @returns the event's reference specified on the "Dashboard" tab of the associated Google Sheet
  */
 function getSelectedEventReference() {
   return SpreadsheetApp.getActive().getRangeByName('ValueEventReference').getDisplayValues()[0][0];
-}
-
-/**
- * Gets the tabular data stored on the "TableEvent" named range of the associated Google Sheet.
- *
- * @returns the tabular data stored on the "TableEvent" named range of the associated Google Sheet
- */
-function getEventTable() {
-  return SpreadsheetApp.getActive()
-    .getRangeByName('TableEvent')
-    .getDisplayValues()
-    .filter((record) => {
-      return record[0];
-    });
 }
 
 /**
@@ -120,9 +97,9 @@ function getSelectedTimeZone() {
  * Gets the import status selected on the "Dashboard" tab of the associated Google Sheet.
  *
  * The import status defines of it is allowed to import data from the EnduranceTrio Timing Exporter
- * microservice. If the import status value is "ON", it is allowed to import data. If the
+ * micro-service. If the import status value is "ON", it is allowed to import data. If the
  * import status value is "OFF", it isn't allowed to import data from the EnduranceTrio Timing Exporter
- * microservice.
+ * micro-service.
  *
  * @returns the import status selected on the "Dashboard" tab of the associated Google Sheet
  */

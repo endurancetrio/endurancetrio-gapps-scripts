@@ -27,10 +27,7 @@
  */
 function onOpen() {
   const ui = SpreadsheetApp.getUi();
-  ui.createMenu('FTP')
-    .addItem('Importar Registos de Cronometragem', 'validateTimingRecordsImport')
-    .addItem('Exportar T5', 'saveFinishLineTxt')
-    .addToUi();
+  ui.createMenu('FTP').addItem('Importar Registos de Cronometragem', 'validateTimingRecordsImport').addToUi();
 }
 
 /**
