@@ -22,11 +22,13 @@
  * SOFTWARE.
  */
 
-const SHEET_NAME_TIMING_EXPORTER_DATA_TARGET = 'MyLaps';
+const TIMING_SYSTEM_MYLAPS = 'MYLAPS';
+
+const TIMING_SYSTEM_RACE_RESULT = 'RACE-RESULT';
 
 const TIMING_EXPORTER_BASE_URL = 'https://api.triatloportugal.pt/timing-exporter/';
 
-const DEFAULT_TIMEZONE_PATH_PARAMETER = 'lisbon/';
+const DEFAULT_TIME_ZONE_PATH_PARAMETER = 'lisbon';
 
 const CHECK_IN_TIMING_DATA_TARGET_RANGE = 'TableTimingExporterCheckIn';
 

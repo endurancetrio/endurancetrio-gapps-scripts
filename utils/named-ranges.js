@@ -38,6 +38,15 @@ function getSelectedEventId() {
 }
 
 /**
+ * Gets the event's reference specified on the "Dashboard" tab of the associated Google Sheet.
+ *
+ * @returns the event's reference specified on the "Dashboard" tab of the associated Google Sheet
+ */
+function getSelectedEventReference() {
+  return SpreadsheetApp.getActive().getRangeByName('ValueEventReference').getDisplayValues()[0][0];
+}
+
+/**
  * Gets the tabular data stored on the "TableEvent" named range of the associated Google Sheet.
  *
  * @returns the tabular data stored on the "TableEvent" named range of the associated Google Sheet
@@ -66,21 +75,45 @@ function getFinishLineRecordTable() {
 }
 
 /**
- * Gets the import date selected on the "Dashboard" tab of the associated Google Sheet.
+ * Gets the start date selected on the "Dashboard" tab of the associated Google Sheet.
  *
- * @returns the import date selected on the "Dashboard" tab of the associated Google Sheet
+ * @returns the start date selected on the "Dashboard" tab of the associated Google Sheet
  */
-function getSelectedImportDate() {
-  return SpreadsheetApp.getActive().getRangeByName('ValueImportDate').getDisplayValues()[0][0];
+function getStartDate() {
+  return SpreadsheetApp.getActive().getRangeByName('ValueStartDate').getDisplayValues()[0][0];
 }
 
 /**
- * Gets the the scoring system selected on the "Dashboard" tab of the associated Google Sheet.
+ * Gets the timing system selected on the "Dashboard" tab of the associated Google Sheet.
  *
- * @returns the the scoring system selected on the "Dashboard" tab of the associated Google Sheet
+ * Currently, the suported timing systems are {@link https://www.mylaps.com/ Mylaps}
+ * and {@link https://www.raceresult.com/ Race Result}.
+ *
+ * @returns the timing system selected on the "Dashboard" tab of the associated Google Sheet
  */
-function getSelectedScoringSystem() {
-  return SpreadsheetApp.getActive().getRangeByName('ValueScoringSystem').getDisplayValues()[0][0];
+function getSelectedTimingSystem() {
+  return SpreadsheetApp.getActive().getRangeByName('ValueTimingSystem').getDisplayValues()[0][0];
+}
+
+/**
+ * Gets the timing data source selected on the "Dashboard" tab of the associated Google Sheet.
+ *
+ * @returns the timing data source selected on the "Dashboard" tab of the associated Google Sheet
+ */
+function getSelectedTimingDataSource() {
+  return SpreadsheetApp.getActive().getRangeByName('ValueTimingDataSource').getDisplayValues()[0][0];
+}
+
+/**
+ * Gets the time zone selected on the "Dashboard" tab of the associated Google Sheet.
+ *
+ * The time zone selected on the "Dashboard" tab of the associated Google Sheet corresponds to the time zone
+ * where the timing devices were located when the timing records where being collected/registered.
+ *
+ * @returns the time zone selected on the "Dashboard" tab of the associated Google Sheet
+ */
+function getSelectedTimeZone() {
+  return SpreadsheetApp.getActive().getRangeByName('ValueTimeZone').getDisplayValues()[0][0];
 }
 
 /**

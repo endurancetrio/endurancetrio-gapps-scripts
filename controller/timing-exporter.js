@@ -23,17 +23,28 @@
  */
 
 /**
- * Gets the MYLAPS timing data, from the EnduranceTrio TimingExporter microservice, recorded in the given timezone.
+ * Gets, from the EnduranceTrio Timing Exporter micro-service, the timing records obtained with the give timing system,
+ * recorded in the given time zone and on the given start date or with the given event reference.
  *
- * The timezone is represented by a string that EnduranceTrio TimingExporter microservice stores as an enum. The
- * supported values are "lisbon" and "azores". The timezone "Lisbon/Europe" is represented by "lisbon" and the
- * timezone "Atlantic/Azores" is represented by "azores".
+ * The time zone is represented by a string that the EnduranceTrio Timing Exporter micro-service stores as an enum.
+ * The supported values are "lisbon" and "azores". The time zone "Lisbon/Europe" is represented by "lisbon"
+ * and the time zone "Atlantic/Azores" is represented by "azores".
  *
- * @param {String} timezone the given timezone
- * @param {String} importDate the given import date
+ * @param {String} timeZone the given time zone
+ * @param {String} startDate the given start date
  */
-function writeMylapsTimingData(timezone, importDate) {
-  const timingData = getMylapsTimingDataByDate(timezone, importDate);
+function storeTimingRecords(timingSystem, timeZone, startDate, eventReference) {
+  let timingData;
+  switch (timingSystem) {
+    case TIMING_SYSTEM_MYLAPS:
+      timingData = getMylapsTimingDataByDate(timeZone, startDate);
+      break;
+    case TIMING_SYSTEM_RACE_RESULT:
+      timingData = getRaceResultTimingDataByEventReference(timeZone, eventReference);
+      break;
+    default:
+      break;
+  }
 
   if (timingData) {
     if (timingData.checkIn && timingData.checkIn.length > 0) {
