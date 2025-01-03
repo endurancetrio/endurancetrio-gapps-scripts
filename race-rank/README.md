@@ -12,7 +12,7 @@
 
 ## Introduction
 
-**RaceRank: Timing & Results** is a [Google Apps Script](https://www.google.com/script/) for a spreadsheet to manage timing and generate classifications of the competitions promoted by the Portuguese Triathlon Federation.
+**RaceRank: Timing & Results** is a [Google Apps Script](https://www.google.com/script/) for a spreadsheet that manages timing and generates classifications for sports competitions. It was initially created with the [Portuguese Triathlon Federation](https://www.federacao-triatlo.pt/) in mind, but it is versatile enough to be used in any sports event that requires race timing and result management.
 
 ## Development
 

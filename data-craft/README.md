@@ -12,7 +12,7 @@
 
 ## Introduction
 
-**DataCraft: HTML & JSON Wizard** is a [Google Apps Script](https://www.google.com/script/) for a spreadsheet that generates data and code used to manage competitions promoted by the Portuguese Triathlon Federation.
+**DataCraft: HTML & JSON Wizard** is a [Google Apps Script](https://www.google.com/script/) for a spreadsheet that generates data and code used to manage sports competitions. It was originally created for targeting the competitions promoted by the [Portuguese Triathlon Federation](https://www.federacao-triatlo.pt/), but can be used for other sports as well.
 
 ## Development
 
