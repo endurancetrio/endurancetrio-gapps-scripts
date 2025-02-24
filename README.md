@@ -1,4 +1,4 @@
-# Google Apps Scripts collection
+# EnduranceTrio Google Apps Scripts
 
 A collection of [Google Apps Scripts](https://developers.google.com/apps-script/) developed for automating workflows, enhancing productivity, and integrating Google services.
 
