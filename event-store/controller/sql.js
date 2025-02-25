@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright(c) 2023 Ricardo do Canto
+ * Copyright(c) 2025 Ricardo do Canto
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files(the "Software"), to deal
@@ -22,6 +22,17 @@
  * SOFTWARE.
  */
 
-function generateSqlInsertCommands(spreadsheetId) {
-  saveSqlInsertCommandsFile(spreadsheetId);
+function saveSqlInsertCommandsFile(spreadsheetId) {
+  const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
+
+  let sql = createSqlFileHeader(spreadsheet);
+  sql += createEventTableInsertCommand(spreadsheet) + '\n\n';
+
+  const folder = getFileFolder(spreadsheetId);
+  const filename = spreadsheet.getName() + '.sql';
+  saveOrUpdateFile(folder, filename, sql, MimeType.PLAIN_TEXT);
+}
+
+function createSqlFileHeader(spreadsheet) {
+  return '-- SQL Commands to insert the data provided by the ' + spreadsheet.getName() + ' spreadsheet\n\n';
 }

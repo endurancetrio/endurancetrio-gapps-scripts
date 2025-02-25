@@ -22,6 +22,32 @@
  * SOFTWARE.
  */
 
-function generateSqlInsertCommands(spreadsheetId) {
-  saveSqlInsertCommandsFile(spreadsheetId);
+function getEventDataFromSpreadsheet(spreadsheet) {
+  const tableEvent = spreadsheet
+    .getRangeByName(RANGE_EVENT)
+    .getDisplayValues()
+    .filter((record) => {
+      return record[0];
+    });
+  const tableEventFields = tableEvent.shift();
+
+  const returnedFields = ['id', 'event_reference', 'title', 'start_date', 'end_date', 'city', 'county', 'district'];
+
+  const events = [];
+  tableEvent.forEach((record) => {
+    const event = {};
+    tableEventFields.map((key, columnIndex) => {
+      if (returnedFields.includes(key)) {
+        if (key === 'id') {
+          event[key] = parseInt(record[columnIndex], 10);
+        } else {
+          event[key] = String(record[columnIndex]);
+        }
+      }
+    });
+
+    events.push(event);
+  });
+
+  return events;
 }

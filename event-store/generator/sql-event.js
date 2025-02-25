@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright(c) 2023 Ricardo do Canto
+ * Copyright(c) 2025 Ricardo do Canto
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files(the "Software"), to deal
@@ -22,6 +22,33 @@
  * SOFTWARE.
  */
 
-function generateSqlInsertCommands(spreadsheetId) {
-  saveSqlInsertCommandsFile(spreadsheetId);
+function createEventTableInsertCommand(spreadsheet) {
+  const eventData = getEventDataFromSpreadsheet(spreadsheet);
+
+  let sql = `-- ${SCHEMA}.${TABLE_EVENT} table\n`;
+  sql += '-- ------------------------------------------------------\n';
+  if (eventData.length === 0) {
+    sql += `-- No data found in the ${TABLE_EVENT} table\n--\n`;
+    return sql;
+  }
+
+  const columns = Object.keys(eventData[0]);
+
+  eventData.forEach((row) => {
+    const values = columns.map((column) => {
+      const value = row[column];
+
+      if (value === null || value === undefined) {
+        return '';
+      } else if (typeof value === 'string') {
+        return `'${value.replace(/'/g, "''")}'`;
+      } else {
+        return value;
+      }
+    });
+
+    sql += `INSERT INTO ${SCHEMA}.${TABLE_ORGANIZER} (${columns.join(', ')}) VALUES (${values.join(', ')});\n`;
+  });
+
+  return sql;
 }
