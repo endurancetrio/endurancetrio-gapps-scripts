@@ -28,6 +28,7 @@ function saveSqlScript(spreadsheetId) {
   let sql = createScriptHeader(spreadsheet);
   sql += createEventTableScript(spreadsheet) + '\n\n';
   sql += createOrganizerTableScript(spreadsheet) + '\n\n';
+  sql += createEventOrganizerTableScript(spreadsheet) + '\n\n';
 
   const folder = getFileFolder(spreadsheetId);
   const filename = spreadsheet.getName() + '.sql';

@@ -22,12 +22,33 @@
  * SOFTWARE.
  */
 
-const SCHEMA = 'endurancetrio';
+function createEventOrganizerTableScript(spreadsheet) {
+  const eventOrganizerData = getEventOrganizerDataFromSpreadsheet(spreadsheet);
 
-const RANGE_EVENT = 'TableEvent';
-const RANGE_ORGANIZER = 'TableOrganizer';
-const RANGE_EVENT_ORGANIZER = 'TableEventOrganizer';
+  let sql = `-- ${SCHEMA}.${TABLE_EVENT_ORGANIZER} table\n`;
+  sql += '-- ------------------------------------------------------\n';
+  if (eventOrganizerData.length === 0) {
+    sql += `-- No data found in the ${TABLE_EVENT_ORGANIZER} table\n\n`;
+    return sql;
+  }
 
-const TABLE_EVENT = 'event';
-const TABLE_ORGANIZER = 'organizer';
-const TABLE_EVENT_ORGANIZER = 'event_organizer';
+  const columns = Object.keys(eventOrganizerData[0]);
+
+  eventOrganizerData.forEach((row) => {
+    const values = columns.map((column) => {
+      const value = row[column];
+
+      if (value === null || value === undefined) {
+        return '';
+      } else if (typeof value === 'string') {
+        return `'${value.replace(/'/g, "''")}'`;
+      } else {
+        return value;
+      }
+    });
+
+    sql += `INSERT INTO ${SCHEMA}.${TABLE_EVENT_ORGANIZER} (${columns.join(', ')}) VALUES (${values.join(', ')});\n`;
+  });
+
+  return sql;
+}

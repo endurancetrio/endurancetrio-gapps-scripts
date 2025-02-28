@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright(c) 2025 Ricardo do Canto
+ * Copyright(c) 2023 Ricardo do Canto
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files(the "Software"), to deal
@@ -22,12 +22,28 @@
  * SOFTWARE.
  */
 
-const SCHEMA = 'endurancetrio';
+function getEventOrganizerDataFromSpreadsheet(spreadsheet) {
+  const eventOrganizerTable = spreadsheet
+    .getRangeByName(RANGE_EVENT_ORGANIZER)
+    .getDisplayValues()
+    .filter((record) => {
+      return record[0];
+    });
+  const tableEventOrganizerFields = eventOrganizerTable.shift();
 
-const RANGE_EVENT = 'TableEvent';
-const RANGE_ORGANIZER = 'TableOrganizer';
-const RANGE_EVENT_ORGANIZER = 'TableEventOrganizer';
+  const returnedFields = ['event_id', 'organizer_id'];
 
-const TABLE_EVENT = 'event';
-const TABLE_ORGANIZER = 'organizer';
-const TABLE_EVENT_ORGANIZER = 'event_organizer';
+  const eventOrganizers = [];
+  eventOrganizerTable.forEach((record) => {
+    const eventOrganizer = {};
+    tableEventOrganizerFields.map((key, columnIndex) => {
+      if (returnedFields.includes(key)) {
+        eventOrganizer[key] = parseInt(record[columnIndex], 10);
+      }
+    });
+
+    eventOrganizers.push(eventOrganizer);
+  });
+
+  return eventOrganizers;
+}

@@ -47,7 +47,7 @@ function createEventTableScript(spreadsheet) {
       }
     });
 
-    sql += `INSERT INTO ${SCHEMA}.${TABLE_ORGANIZER} (${columns.join(', ')}) VALUES (${values.join(', ')});\n`;
+    sql += `INSERT INTO ${SCHEMA}.${TABLE_EVENT} (${columns.join(', ')}) VALUES (${values.join(', ')});\n`;
   });
 
   return sql;
