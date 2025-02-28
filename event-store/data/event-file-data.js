@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright(c) 2025 Ricardo do Canto
+ * Copyright(c) 2023 Ricardo do Canto
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files(the "Software"), to deal
@@ -22,20 +22,40 @@
  * SOFTWARE.
  */
 
-function saveSqlScript(spreadsheetId) {
-  const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
+function getEventFileDataFromSpreadsheet(spreadsheet) {
+  const eventFileTable = spreadsheet
+    .getRangeByName(RANGE_EVENT_FILE)
+    .getDisplayValues()
+    .filter((record) => {
+      return record[0];
+    });
+  const tableEventFileFields = eventFileTable.shift();
 
-  let sql = createScriptHeader(spreadsheet);
-  sql += createEventTableScript(spreadsheet) + '\n\n';
-  sql += createOrganizerTableScript(spreadsheet) + '\n\n';
-  sql += createEventOrganizerTableScript(spreadsheet) + '\n\n';
-  sql += createEventFileTableScript(spreadsheet) + '\n\n';
+  const returnedFields = ['id', 'event_id', 'title', 'revision', 'is_active', 'file_name', 'file_type'];
 
-  const folder = getFileFolder(spreadsheetId);
-  const filename = spreadsheet.getName() + '.sql';
-  saveOrUpdateFile(folder, filename, sql, MimeType.PLAIN_TEXT);
-}
+  const eventFiles = [];
+  eventFileTable.forEach((record) => {
+    const eventFile = {};
+    tableEventFileFields.map((key, columnIndex) => {
+      if (returnedFields.includes(key)) {
+        switch (key) {
+          case 'id':
+          case 'event_id':
+          case 'revision':
+            eventFile[key] = parseInt(record[columnIndex], 10);
+            break;
+          case 'is_active':
+            eventFile[key] = getBoolean(record[columnIndex]);
+            break;
+          default:
+            eventFile[key] = String(record[columnIndex]);
+            break;
+        }
+      }
+    });
 
-function createScriptHeader(spreadsheet) {
-  return '-- SQL Commands to insert the data provided by the ' + spreadsheet.getName() + ' spreadsheet\n\n';
+    eventFiles.push(eventFile);
+  });
+
+  return eventFiles;
 }

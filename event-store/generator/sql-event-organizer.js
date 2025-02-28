@@ -26,7 +26,7 @@ function createEventOrganizerTableScript(spreadsheet) {
   const eventOrganizerData = getEventOrganizerDataFromSpreadsheet(spreadsheet);
 
   let sql = `-- ${SCHEMA}.${TABLE_EVENT_ORGANIZER} table\n`;
-  sql += '-- ------------------------------------------------------\n';
+  sql += '-- -----------------------------------\n';
   if (eventOrganizerData.length === 0) {
     sql += `-- No data found in the ${TABLE_EVENT_ORGANIZER} table\n\n`;
     return sql;

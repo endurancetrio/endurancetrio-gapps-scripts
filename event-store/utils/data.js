@@ -22,20 +22,15 @@
  * SOFTWARE.
  */
 
-function saveSqlScript(spreadsheetId) {
-  const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
+/**
+ * Converts the given string into a boolean value.
+ *
+ * @param value the given string to be converted into a boolean
+ *
+ * @return the converted boolean value
+ */
+function getBoolean(value) {
+  value = value.toUpperCase();
 
-  let sql = createScriptHeader(spreadsheet);
-  sql += createEventTableScript(spreadsheet) + '\n\n';
-  sql += createOrganizerTableScript(spreadsheet) + '\n\n';
-  sql += createEventOrganizerTableScript(spreadsheet) + '\n\n';
-  sql += createEventFileTableScript(spreadsheet) + '\n\n';
-
-  const folder = getFileFolder(spreadsheetId);
-  const filename = spreadsheet.getName() + '.sql';
-  saveOrUpdateFile(folder, filename, sql, MimeType.PLAIN_TEXT);
-}
-
-function createScriptHeader(spreadsheet) {
-  return '-- SQL Commands to insert the data provided by the ' + spreadsheet.getName() + ' spreadsheet\n\n';
+  return value === 'TRUE' || value === 'VERDADEIRO';
 }

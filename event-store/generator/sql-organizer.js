@@ -26,7 +26,7 @@ function createOrganizerTableScript(spreadsheet) {
   const organizerData = getOrganizerDataFromSpreadsheet(spreadsheet);
 
   let sql = `-- ${SCHEMA}.${TABLE_ORGANIZER} table\n`;
-  sql += '-- ------------------------------------------------------\n';
+  sql += '-- -----------------------------\n';
   if (organizerData.length === 0) {
     sql += `-- No data found in the ${TABLE_ORGANIZER} table\n\n`;
     return sql;

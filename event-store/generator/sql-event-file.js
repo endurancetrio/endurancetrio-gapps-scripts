@@ -22,20 +22,33 @@
  * SOFTWARE.
  */
 
-function saveSqlScript(spreadsheetId) {
-  const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
+function createEventFileTableScript(spreadsheet) {
+  const eventFileData = getEventFileDataFromSpreadsheet(spreadsheet);
 
-  let sql = createScriptHeader(spreadsheet);
-  sql += createEventTableScript(spreadsheet) + '\n\n';
-  sql += createOrganizerTableScript(spreadsheet) + '\n\n';
-  sql += createEventOrganizerTableScript(spreadsheet) + '\n\n';
-  sql += createEventFileTableScript(spreadsheet) + '\n\n';
+  let sql = `-- ${SCHEMA}.${TABLE_EVENT_FILE} table\n`;
+  sql += '-- ------------------------------\n';
+  if (eventFileData.length === 0) {
+    sql += `-- No data found in the ${TABLE_EVENT_FILE} table\n\n`;
+    return sql;
+  }
 
-  const folder = getFileFolder(spreadsheetId);
-  const filename = spreadsheet.getName() + '.sql';
-  saveOrUpdateFile(folder, filename, sql, MimeType.PLAIN_TEXT);
-}
+  const columns = Object.keys(eventFileData[0]);
 
-function createScriptHeader(spreadsheet) {
-  return '-- SQL Commands to insert the data provided by the ' + spreadsheet.getName() + ' spreadsheet\n\n';
+  eventFileData.forEach((row) => {
+    const values = columns.map((column) => {
+      const value = row[column];
+
+      if (value === null || value === undefined) {
+        return '';
+      } else if (typeof value === 'string') {
+        return `'${value.replace(/'/g, "''")}'`;
+      } else {
+        return value;
+      }
+    });
+
+    sql += `INSERT INTO ${SCHEMA}.${TABLE_EVENT_FILE} (${columns.join(', ')}) VALUES (${values.join(', ')});\n`;
+  });
+
+  return sql;
 }
