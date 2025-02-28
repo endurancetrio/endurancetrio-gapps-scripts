@@ -22,18 +22,33 @@
  * SOFTWARE.
  */
 
-function saveSqlScript(spreadsheetId) {
-  const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
+function createOrganizerTableScript(spreadsheet) {
+  const organizerData = getOrganizerDataFromSpreadsheet(spreadsheet);
 
-  let sql = createScriptHeader(spreadsheet);
-  sql += createEventTableScript(spreadsheet) + '\n\n';
-  sql += createOrganizerTableScript(spreadsheet) + '\n\n';
+  let sql = `-- ${SCHEMA}.${TABLE_ORGANIZER} table\n`;
+  sql += '-- ------------------------------------------------------\n';
+  if (organizerData.length === 0) {
+    sql += `-- No data found in the ${TABLE_ORGANIZER} table\n\n`;
+    return sql;
+  }
 
-  const folder = getFileFolder(spreadsheetId);
-  const filename = spreadsheet.getName() + '.sql';
-  saveOrUpdateFile(folder, filename, sql, MimeType.PLAIN_TEXT);
-}
+  const columns = Object.keys(organizerData[0]);
 
-function createScriptHeader(spreadsheet) {
-  return '-- SQL Commands to insert the data provided by the ' + spreadsheet.getName() + ' spreadsheet\n\n';
+  organizerData.forEach((row) => {
+    const values = columns.map((column) => {
+      const value = row[column];
+
+      if (value === null || value === undefined) {
+        return '';
+      } else if (typeof value === 'string') {
+        return `'${value.replace(/'/g, "''")}'`;
+      } else {
+        return value;
+      }
+    });
+
+    sql += `INSERT INTO ${SCHEMA}.${TABLE_ORGANIZER} (${columns.join(', ')}) VALUES (${values.join(', ')});\n`;
+  });
+
+  return sql;
 }

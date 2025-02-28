@@ -25,5 +25,7 @@
 const SCHEMA = 'endurancetrio';
 
 const RANGE_EVENT = 'TableEvent';
+const RANGE_ORGANIZER = 'TableOrganizer';
 
 const TABLE_EVENT = 'event';
+const TABLE_ORGANIZER = 'organizer';

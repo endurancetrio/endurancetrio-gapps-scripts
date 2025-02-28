@@ -22,13 +22,13 @@
  * SOFTWARE.
  */
 
-function createEventTableInsertCommand(spreadsheet) {
+function createEventTableScript(spreadsheet) {
   const eventData = getEventDataFromSpreadsheet(spreadsheet);
 
   let sql = `-- ${SCHEMA}.${TABLE_EVENT} table\n`;
   sql += '-- ------------------------------------------------------\n';
   if (eventData.length === 0) {
-    sql += `-- No data found in the ${TABLE_EVENT} table\n--\n`;
+    sql += `-- No data found in the ${TABLE_EVENT} table\n\n`;
     return sql;
   }
 

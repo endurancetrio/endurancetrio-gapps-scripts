@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright(c) 2025 Ricardo do Canto
+ * Copyright(c) 2023 Ricardo do Canto
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files(the "Software"), to deal
@@ -22,18 +22,32 @@
  * SOFTWARE.
  */
 
-function saveSqlScript(spreadsheetId) {
-  const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
+function getOrganizerDataFromSpreadsheet(spreadsheet) {
+  const organizerTable = spreadsheet
+    .getRangeByName(RANGE_ORGANIZER)
+    .getDisplayValues()
+    .filter((record) => {
+      return record[0];
+    });
+  const tableOrganizerFields = organizerTable.shift();
 
-  let sql = createScriptHeader(spreadsheet);
-  sql += createEventTableScript(spreadsheet) + '\n\n';
-  sql += createOrganizerTableScript(spreadsheet) + '\n\n';
+  const returnedFields = ['id', 'name', 'city', 'county', 'district', 'organizer_type'];
 
-  const folder = getFileFolder(spreadsheetId);
-  const filename = spreadsheet.getName() + '.sql';
-  saveOrUpdateFile(folder, filename, sql, MimeType.PLAIN_TEXT);
-}
+  const organizers = [];
+  organizerTable.forEach((record) => {
+    const organizer = {};
+    tableOrganizerFields.map((key, columnIndex) => {
+      if (returnedFields.includes(key)) {
+        if (key === 'id') {
+          organizer[key] = parseInt(record[columnIndex], 10);
+        } else {
+          organizer[key] = String(record[columnIndex]);
+        }
+      }
+    });
 
-function createScriptHeader(spreadsheet) {
-  return '-- SQL Commands to insert the data provided by the ' + spreadsheet.getName() + ' spreadsheet\n\n';
+    organizers.push(organizer);
+  });
+
+  return organizers;
 }
