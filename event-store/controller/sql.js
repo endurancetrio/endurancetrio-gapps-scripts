@@ -30,6 +30,13 @@ function saveSqlScript(spreadsheetId) {
   sql += createOrganizerTableScript(spreadsheet) + '\n\n';
   sql += createEventOrganizerTableScript(spreadsheet) + '\n\n';
   sql += createEventFileTableScript(spreadsheet) + '\n\n';
+  sql += createDistanceTableScript(spreadsheet) + '\n\n';
+  sql += createAquabikeDistanceTableScript(spreadsheet) + '\n\n';
+  sql += createAquathlonDistanceTableScript(spreadsheet) + '\n\n';
+  sql += createBiathlonDistanceTableScript(spreadsheet) + '\n\n';
+  sql += createDoubleBiathlonDistanceTableScript(spreadsheet) + '\n\n';
+  sql += createDuathlonDistanceTableScript(spreadsheet) + '\n\n';
+  sql += createTriathlonDistanceTableScript(spreadsheet) + '\n\n';
 
   const folder = getFileFolder(spreadsheetId);
   const filename = spreadsheet.getName() + '.sql';

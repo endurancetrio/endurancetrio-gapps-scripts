@@ -22,19 +22,19 @@
  * SOFTWARE.
  */
 
-function createEventTableScript(spreadsheet) {
-  const eventData = getEventDataFromSpreadsheet(spreadsheet);
+function createDuathlonDistanceTableScript(spreadsheet) {
+  const duathlonDistanceData = getDuathlonDistanceDataFromSpreadsheet(spreadsheet);
 
-  let sql = `-- ${SCHEMA}.${TABLE_EVENT} table\n`;
-  sql += '-- -------------------------\n';
-  if (eventData.length === 0) {
-    sql += `-- No data found in the ${TABLE_EVENT} table\n\n`;
+  let sql = `-- ${SCHEMA}.${TABLE_DUATHLON_DISTANCE} table\n`;
+  sql += '-- -------------------------------------\n';
+  if (duathlonDistanceData.length === 0) {
+    sql += `-- No data found in the ${TABLE_DUATHLON_DISTANCE} table\n\n`;
     return sql;
   }
 
-  const columns = Object.keys(eventData[0]);
+  const columns = Object.keys(duathlonDistanceData[0]);
 
-  eventData.forEach((row) => {
+  duathlonDistanceData.forEach((row) => {
     const values = columns.map((column) => {
       const value = row[column];
 
@@ -47,7 +47,7 @@ function createEventTableScript(spreadsheet) {
       }
     });
 
-    sql += `INSERT INTO ${SCHEMA}.${TABLE_EVENT} (${columns.join(', ')}) VALUES (${values.join(', ')});\n`;
+    sql += `INSERT INTO ${SCHEMA}.${TABLE_DUATHLON_DISTANCE} (${columns.join(', ')}) VALUES (${values.join(', ')});\n`;
   });
 
   return sql;

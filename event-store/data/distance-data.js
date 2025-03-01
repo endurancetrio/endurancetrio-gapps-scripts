@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright(c) 2025 Ricardo do Canto
+ * Copyright(c) 2023 Ricardo do Canto
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files(the "Software"), to deal
@@ -22,33 +22,32 @@
  * SOFTWARE.
  */
 
-function createEventTableScript(spreadsheet) {
-  const eventData = getEventDataFromSpreadsheet(spreadsheet);
+function getDistanceDataFromSpreadsheet(spreadsheet) {
+  const tableDistance = spreadsheet
+    .getRangeByName(RANGE_DISTANCE)
+    .getDisplayValues()
+    .filter((record) => {
+      return record[0];
+    });
+  const tableDistanceFields = tableDistance.shift();
 
-  let sql = `-- ${SCHEMA}.${TABLE_EVENT} table\n`;
-  sql += '-- -------------------------\n';
-  if (eventData.length === 0) {
-    sql += `-- No data found in the ${TABLE_EVENT} table\n\n`;
-    return sql;
-  }
+  const returnedFields = ['id', 'distance_type'];
 
-  const columns = Object.keys(eventData[0]);
-
-  eventData.forEach((row) => {
-    const values = columns.map((column) => {
-      const value = row[column];
-
-      if (value === null || value === undefined) {
-        return '';
-      } else if (typeof value === 'string') {
-        return `'${value.replace(/'/g, "''")}'`;
-      } else {
-        return value;
+  const distances = [];
+  tableDistance.forEach((record) => {
+    const distance = {};
+    tableDistanceFields.map((key, columnIndex) => {
+      if (returnedFields.includes(key)) {
+        if (key === 'id') {
+          distance[key] = parseInt(record[columnIndex], 10);
+        } else {
+          distance[key] = String(record[columnIndex]);
+        }
       }
     });
 
-    sql += `INSERT INTO ${SCHEMA}.${TABLE_EVENT} (${columns.join(', ')}) VALUES (${values.join(', ')});\n`;
+    distances.push(distance);
   });
 
-  return sql;
+  return distances;
 }

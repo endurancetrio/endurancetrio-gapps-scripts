@@ -22,19 +22,19 @@
  * SOFTWARE.
  */
 
-function createEventTableScript(spreadsheet) {
-  const eventData = getEventDataFromSpreadsheet(spreadsheet);
+function createAquathlonDistanceTableScript(spreadsheet) {
+  const aquathlonDistanceData = getAquathlonDistanceDataFromSpreadsheet(spreadsheet);
 
-  let sql = `-- ${SCHEMA}.${TABLE_EVENT} table\n`;
-  sql += '-- -------------------------\n';
-  if (eventData.length === 0) {
-    sql += `-- No data found in the ${TABLE_EVENT} table\n\n`;
+  let sql = `-- ${SCHEMA}.${TABLE_AQUATHLON_DISTANCE} table\n`;
+  sql += '-- --------------------------------------\n';
+  if (aquathlonDistanceData.length === 0) {
+    sql += `-- No data found in the ${TABLE_AQUATHLON_DISTANCE} table\n\n`;
     return sql;
   }
 
-  const columns = Object.keys(eventData[0]);
+  const columns = Object.keys(aquathlonDistanceData[0]);
 
-  eventData.forEach((row) => {
+  aquathlonDistanceData.forEach((row) => {
     const values = columns.map((column) => {
       const value = row[column];
 
@@ -47,7 +47,7 @@ function createEventTableScript(spreadsheet) {
       }
     });
 
-    sql += `INSERT INTO ${SCHEMA}.${TABLE_EVENT} (${columns.join(', ')}) VALUES (${values.join(', ')});\n`;
+    sql += `INSERT INTO ${SCHEMA}.${TABLE_AQUATHLON_DISTANCE} (${columns.join(', ')}) VALUES (${values.join(', ')});\n`;
   });
 
   return sql;

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright(c) 2025 Ricardo do Canto
+ * Copyright(c) 2023 Ricardo do Canto
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files(the "Software"), to deal
@@ -22,33 +22,28 @@
  * SOFTWARE.
  */
 
-function createEventTableScript(spreadsheet) {
-  const eventData = getEventDataFromSpreadsheet(spreadsheet);
+function getAquabikeDistanceDataFromSpreadsheet(spreadsheet) {
+  const tableAquabikeDistance = spreadsheet
+    .getRangeByName(RANGE_AQUABIKE_DISTANCE)
+    .getDisplayValues()
+    .filter((record) => {
+      return record[0];
+    });
+  const tableAquabikeDistanceFields = tableAquabikeDistance.shift();
 
-  let sql = `-- ${SCHEMA}.${TABLE_EVENT} table\n`;
-  sql += '-- -------------------------\n';
-  if (eventData.length === 0) {
-    sql += `-- No data found in the ${TABLE_EVENT} table\n\n`;
-    return sql;
-  }
+  const returnedFields = ['id', 'swim_distance', 'swim_laps', 'bike_distance', 'bike_laps'];
 
-  const columns = Object.keys(eventData[0]);
-
-  eventData.forEach((row) => {
-    const values = columns.map((column) => {
-      const value = row[column];
-
-      if (value === null || value === undefined) {
-        return '';
-      } else if (typeof value === 'string') {
-        return `'${value.replace(/'/g, "''")}'`;
-      } else {
-        return value;
+  const aquabikeDistances = [];
+  tableAquabikeDistance.forEach((record) => {
+    const aquabikeDistance = {};
+    tableAquabikeDistanceFields.map((key, columnIndex) => {
+      if (returnedFields.includes(key)) {
+        aquabikeDistance[key] = parseInt(record[columnIndex], 10);
       }
     });
 
-    sql += `INSERT INTO ${SCHEMA}.${TABLE_EVENT} (${columns.join(', ')}) VALUES (${values.join(', ')});\n`;
+    aquabikeDistances.push(aquabikeDistance);
   });
 
-  return sql;
+  return aquabikeDistances;
 }
