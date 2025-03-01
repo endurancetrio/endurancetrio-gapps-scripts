@@ -35,6 +35,7 @@ const RANGE_BIATHLON_DISTANCE = 'TableBiathlonDistance';
 const RANGE_DOUBLE_BIATHLON_DISTANCE = 'TableDoubleBiathlonDistance';
 const RANGE_DUATHLON_DISTANCE = 'TableDuathlonDistance';
 const RANGE_TRIATHLON_DISTANCE = 'TableTriathlonDistance';
+const RANGE_COURSE = 'TableCourse';
 
 const TABLE_EVENT = 'event';
 const TABLE_ORGANIZER = 'organizer';
@@ -47,3 +48,4 @@ const TABLE_BIATHLON_DISTANCE = 'biathlon_distance';
 const TABLE_DOUBLE_BIATHLON_DISTANCE = 'double_biathlon_distance';
 const TABLE_DUATHLON_DISTANCE = 'duathlon_distance';
 const TABLE_TRIATHLON_DISTANCE = 'triathlon_distance';
+const TABLE_COURSE = 'course';
