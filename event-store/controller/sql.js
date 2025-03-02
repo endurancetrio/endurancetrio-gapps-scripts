@@ -39,6 +39,10 @@ function saveSqlScript(spreadsheetId) {
   sql += createTriathlonDistanceTableScript(spreadsheet) + '\n\n';
   sql += createCourseTableScript(spreadsheet) + '\n\n';
   sql += createAgeGroupTableScript(spreadsheet) + '\n\n';
+  sql += createRaceTableScript(spreadsheet) + '\n\n';
+  sql += createTriathlonBasedRaceTableScript(spreadsheet) + '\n\n';
+  sql += createCourseRaceTableScript(spreadsheet) + '\n\n';
+  sql += createRaceHierarchyTableScript(spreadsheet) + '\n\n';
 
   const folder = getFileFolder(spreadsheetId);
   const filename = spreadsheet.getName() + '.sql';
