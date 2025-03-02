@@ -1,6 +1,6 @@
 {
   "name": "event-store",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Google Apps Script for a spreadsheet to manage endurance sport events",
   "main": "index.js",
   "type": "module",
