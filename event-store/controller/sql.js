@@ -22,6 +22,12 @@
  * SOFTWARE.
  */
 
+/**
+ * Saves a SQL script to insert the the data from the given spreadsheet in an SQL database. The script is saved in the
+ * same folder as the given spreadsheet.
+ *
+ * @param {String} spreadsheetId the id of the spreadsheet with the Event's data
+ */
 function saveSqlScript(spreadsheetId) {
   const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
 
