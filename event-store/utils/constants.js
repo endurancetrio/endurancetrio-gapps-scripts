@@ -41,6 +41,7 @@ const RANGE_RACE = 'TableRace';
 const RANGE_TRIATHLON_BASED_RACE = 'TableTriathlonBasedRace';
 const RANGE_COURSE_RACE = 'TableCourseRace';
 const RANGE_RACE_HIERARCHY = 'TableRaceHierarchy';
+const RANGE_RESULTS_FILE = 'TableResultsFile';
 
 const TABLE_EVENT = 'event';
 const TABLE_ORGANIZER = 'organizer';
@@ -59,3 +60,4 @@ const TABLE_RACE = 'race';
 const TABLE_TRIATHLON_BASED_RACE = 'triathlon_based_race';
 const TABLE_COURSE_RACE = 'course_race';
 const TABLE_RACE_HIERARCHY = 'race_hierarchy';
+const TABLE_RESULTS_FILE = 'results_file';
