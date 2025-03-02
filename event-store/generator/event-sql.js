@@ -22,33 +22,19 @@
  * SOFTWARE.
  */
 
-function createAquabikeDistanceTableScript(spreadsheet) {
-  const aquabikeDistanceData = getAquabikeDistanceDataFromSpreadsheet(spreadsheet);
+/**
+ * Creates the SQL script to insert the event data from the given spreadsheet into an SQL database table.
+ *
+ * @param {Spreadsheet} spreadsheet the given spreadsheet
+ *
+ * @returns The SQL script to insert the event data from the given spreadsheet into an SQL database table
+ */
+function createEventTableScript(spreadsheet) {
+  const eventData = getEventDataFromSpreadsheet(spreadsheet);
 
-  let sql = `-- ${SCHEMA}.${TABLE_AQUABIKE_DISTANCE} table\n`;
-  sql += '-- -------------------------------------\n';
-  if (aquabikeDistanceData.length === 0) {
-    sql += `-- No data found in the ${TABLE_AQUABIKE_DISTANCE} table\n\n`;
-    return sql;
-  }
-
-  const columns = Object.keys(aquabikeDistanceData[0]);
-
-  aquabikeDistanceData.forEach((row) => {
-    const values = columns.map((column) => {
-      const value = row[column];
-
-      if (value === null || value === undefined) {
-        return '';
-      } else if (typeof value === 'string') {
-        return `'${value.replace(/'/g, "''")}'`;
-      } else {
-        return value;
-      }
-    });
-
-    sql += `INSERT INTO ${SCHEMA}.${TABLE_AQUABIKE_DISTANCE} (${columns.join(', ')}) VALUES (${values.join(', ')});\n`;
-  });
+  let sql = `-- ${SCHEMA}.${TABLE_EVENT} table\n`;
+  sql += '-- -------------------------\n';
+  sql += createSqlScriptToInsertTableData(SCHEMA, TABLE_EVENT, eventData);
 
   return sql;
 }

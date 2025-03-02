@@ -22,12 +22,19 @@
  * SOFTWARE.
  */
 
-function createRaceTableScript(spreadsheet) {
-  const data = getRaceDataFromSpreadsheet(spreadsheet);
+/**
+ * Creates the SQL script to insert the age_group data from the given spreadsheet into an SQL database table.
+ *
+ * @param {Spreadsheet} spreadsheet the given spreadsheet
+ *
+ * @returns The SQL script to insert the age_group data from the given spreadsheet into an SQL database table
+ */
+function createAgeGroupTableScript(spreadsheet) {
+  const courseData = getAgeGroupDataFromSpreadsheet(spreadsheet);
 
-  let sql = `-- ${SCHEMA}.${TABLE_RACE} table\n`;
-  sql += '-- ------------------------\n';
-  sql += createSqlScriptToInsertTableData(SCHEMA, TABLE_RACE, data);
+  let sql = `-- ${SCHEMA}.${TABLE_AGE_GROUP} table\n`;
+  sql += '-- --------------------------\n';
+  sql += createSqlScriptToInsertTableData(SCHEMA, TABLE_AGE_GROUP, courseData);
 
   return sql;
 }

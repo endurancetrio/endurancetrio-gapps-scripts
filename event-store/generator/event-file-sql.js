@@ -22,33 +22,19 @@
  * SOFTWARE.
  */
 
-function createCourseTableScript(spreadsheet) {
-  const courseData = getCourseDataFromSpreadsheet(spreadsheet);
+/**
+ * Creates the SQL script to insert the event_file data from the given spreadsheet into an SQL database table.
+ *
+ * @param {Spreadsheet} spreadsheet the given spreadsheet
+ *
+ * @returns The SQL script to insert the event_file data from the given spreadsheet into an SQL database table
+ */
+function createEventFileTableScript(spreadsheet) {
+  const eventFileData = getEventFileDataFromSpreadsheet(spreadsheet);
 
-  let sql = `-- ${SCHEMA}.${TABLE_COURSE} table\n`;
-  sql += '-- --------------------------\n';
-  if (courseData.length === 0) {
-    sql += `-- No data found in the ${TABLE_COURSE} table\n\n`;
-    return sql;
-  }
-
-  const columns = Object.keys(courseData[0]);
-
-  courseData.forEach((row) => {
-    const values = columns.map((column) => {
-      const value = row[column];
-
-      if (value === null || value === undefined) {
-        return '';
-      } else if (typeof value === 'string') {
-        return `'${value.replace(/'/g, "''")}'`;
-      } else {
-        return value;
-      }
-    });
-
-    sql += `INSERT INTO ${SCHEMA}.${TABLE_COURSE} (${columns.join(', ')}) VALUES (${values.join(', ')});\n`;
-  });
+  let sql = `-- ${SCHEMA}.${TABLE_EVENT_FILE} table\n`;
+  sql += '-- ------------------------------\n';
+  sql += createSqlScriptToInsertTableData(SCHEMA, TABLE_EVENT_FILE, eventFileData);
 
   return sql;
 }

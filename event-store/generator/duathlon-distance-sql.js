@@ -22,12 +22,19 @@
  * SOFTWARE.
  */
 
-function createResultsFileTableScript(spreadsheet) {
-  const data = getResultsFileDataFromSpreadsheet(spreadsheet);
+/**
+ * Creates the SQL script to insert the duathlon_distance data from the given spreadsheet into an SQL database table.
+ *
+ * @param {Spreadsheet} spreadsheet the given spreadsheet
+ *
+ * @returns The SQL script to insert the duathlon_distance data from the given spreadsheet into an SQL database table
+ */
+function createDuathlonDistanceTableScript(spreadsheet) {
+  const duathlonDistanceData = getDuathlonDistanceDataFromSpreadsheet(spreadsheet);
 
-  let sql = `-- ${SCHEMA}.${TABLE_RESULTS_FILE} table\n`;
-  sql += '-- --------------------------------\n';
-  sql += createSqlScriptToInsertTableData(SCHEMA, TABLE_RESULTS_FILE, data);
+  let sql = `-- ${SCHEMA}.${TABLE_DUATHLON_DISTANCE} table\n`;
+  sql += '-- -------------------------------------\n';
+  sql += createSqlScriptToInsertTableData(SCHEMA, TABLE_DUATHLON_DISTANCE, duathlonDistanceData);
 
   return sql;
 }

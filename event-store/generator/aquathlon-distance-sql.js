@@ -22,33 +22,19 @@
  * SOFTWARE.
  */
 
-function createOrganizerTableScript(spreadsheet) {
-  const organizerData = getOrganizerDataFromSpreadsheet(spreadsheet);
+/**
+ * Creates the SQL script to insert the aquathlon_distance data from the given spreadsheet into an SQL database table.
+ *
+ * @param {Spreadsheet} spreadsheet the given spreadsheet
+ *
+ * @returns The SQL script to insert the aquathlon_distance data from the given spreadsheet into an SQL database table
+ */
+function createAquathlonDistanceTableScript(spreadsheet) {
+  const aquathlonDistanceData = getAquathlonDistanceDataFromSpreadsheet(spreadsheet);
 
-  let sql = `-- ${SCHEMA}.${TABLE_ORGANIZER} table\n`;
-  sql += '-- -----------------------------\n';
-  if (organizerData.length === 0) {
-    sql += `-- No data found in the ${TABLE_ORGANIZER} table\n\n`;
-    return sql;
-  }
-
-  const columns = Object.keys(organizerData[0]);
-
-  organizerData.forEach((row) => {
-    const values = columns.map((column) => {
-      const value = row[column];
-
-      if (value === null || value === undefined) {
-        return '';
-      } else if (typeof value === 'string') {
-        return `'${value.replace(/'/g, "''")}'`;
-      } else {
-        return value;
-      }
-    });
-
-    sql += `INSERT INTO ${SCHEMA}.${TABLE_ORGANIZER} (${columns.join(', ')}) VALUES (${values.join(', ')});\n`;
-  });
+  let sql = `-- ${SCHEMA}.${TABLE_AQUATHLON_DISTANCE} table\n`;
+  sql += '-- --------------------------------------\n';
+  sql += createSqlScriptToInsertTableData(SCHEMA, TABLE_AQUATHLON_DISTANCE, aquathlonDistanceData);
 
   return sql;
 }

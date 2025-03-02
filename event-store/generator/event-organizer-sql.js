@@ -22,33 +22,19 @@
  * SOFTWARE.
  */
 
-function createEventFileTableScript(spreadsheet) {
-  const eventFileData = getEventFileDataFromSpreadsheet(spreadsheet);
+/**
+ * Creates the SQL script to insert the event_organizer data from the given spreadsheet into an SQL database table.
+ *
+ * @param {Spreadsheet} spreadsheet the given spreadsheet
+ *
+ * @returns The SQL script to insert the event_organizer data from the given spreadsheet into an SQL database table
+ */
+function createEventOrganizerTableScript(spreadsheet) {
+  const eventOrganizerData = getEventOrganizerDataFromSpreadsheet(spreadsheet);
 
-  let sql = `-- ${SCHEMA}.${TABLE_EVENT_FILE} table\n`;
-  sql += '-- ------------------------------\n';
-  if (eventFileData.length === 0) {
-    sql += `-- No data found in the ${TABLE_EVENT_FILE} table\n\n`;
-    return sql;
-  }
-
-  const columns = Object.keys(eventFileData[0]);
-
-  eventFileData.forEach((row) => {
-    const values = columns.map((column) => {
-      const value = row[column];
-
-      if (value === null || value === undefined) {
-        return '';
-      } else if (typeof value === 'string') {
-        return `'${value.replace(/'/g, "''")}'`;
-      } else {
-        return value;
-      }
-    });
-
-    sql += `INSERT INTO ${SCHEMA}.${TABLE_EVENT_FILE} (${columns.join(', ')}) VALUES (${values.join(', ')});\n`;
-  });
+  let sql = `-- ${SCHEMA}.${TABLE_EVENT_ORGANIZER} table\n`;
+  sql += '-- -----------------------------------\n';
+  sql += createSqlScriptToInsertTableData(SCHEMA, TABLE_EVENT_ORGANIZER, eventOrganizerData);
 
   return sql;
 }

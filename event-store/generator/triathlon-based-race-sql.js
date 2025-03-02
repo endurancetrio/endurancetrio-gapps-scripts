@@ -22,33 +22,21 @@
  * SOFTWARE.
  */
 
-function createAgeGroupTableScript(spreadsheet) {
-  const courseData = getAgeGroupDataFromSpreadsheet(spreadsheet);
+/**
+ * Creates the SQL script to insert the triathlon_based_race data from the given spreadsheet
+ * into an SQL database table.
+ *
+ * @param {Spreadsheet} spreadsheet the given spreadsheet
+ *
+ * @returns The SQL script to insert the triathlon_based_race data from the given spreadsheet
+ * into an SQL database table
+ */
+function createTriathlonBasedRaceTableScript(spreadsheet) {
+  const triathlonBasedRaceData = getTriathlonBasedRaceDataFromSpreadsheet(spreadsheet);
 
-  let sql = `-- ${SCHEMA}.${TABLE_AGE_GROUP} table\n`;
-  sql += '-- --------------------------\n';
-  if (courseData.length === 0) {
-    sql += `-- No data found in the ${TABLE_AGE_GROUP} table\n\n`;
-    return sql;
-  }
-
-  const columns = Object.keys(courseData[0]);
-
-  courseData.forEach((row) => {
-    const values = columns.map((column) => {
-      const value = row[column];
-
-      if (value === null || value === undefined) {
-        return '';
-      } else if (typeof value === 'string') {
-        return `'${value.replace(/'/g, "''")}'`;
-      } else {
-        return value;
-      }
-    });
-
-    sql += `INSERT INTO ${SCHEMA}.${TABLE_AGE_GROUP} (${columns.join(', ')}) VALUES (${values.join(', ')});\n`;
-  });
+  let sql = `-- ${SCHEMA}.${TABLE_TRIATHLON_BASED_RACE} table\n`;
+  sql += '-- ----------------------------------------\n';
+  sql += createSqlScriptToInsertTableData(SCHEMA, TABLE_TRIATHLON_BASED_RACE, triathlonBasedRaceData);
 
   return sql;
 }

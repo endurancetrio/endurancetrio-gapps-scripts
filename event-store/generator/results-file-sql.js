@@ -22,12 +22,19 @@
  * SOFTWARE.
  */
 
-function createRaceHierarchyTableScript(spreadsheet) {
-  const data = getRaceHierarchyDataFromSpreadsheet(spreadsheet);
+/**
+ * Creates the SQL script to insert the results_file data from the given spreadsheet into an SQL database table.
+ *
+ * @param {Spreadsheet} spreadsheet the given spreadsheet
+ *
+ * @returns The SQL script to insert the results_file data from the given spreadsheet into an SQL database table
+ */
+function createResultsFileTableScript(spreadsheet) {
+  const resultsFileData = getResultsFileDataFromSpreadsheet(spreadsheet);
 
-  let sql = `-- ${SCHEMA}.${TABLE_RACE_HIERARCHY} table\n`;
-  sql += '-- ----------------------------------\n';
-  sql += createSqlScriptToInsertTableData(SCHEMA, TABLE_RACE_HIERARCHY, data);
+  let sql = `-- ${SCHEMA}.${TABLE_RESULTS_FILE} table\n`;
+  sql += '-- --------------------------------\n';
+  sql += createSqlScriptToInsertTableData(SCHEMA, TABLE_RESULTS_FILE, resultsFileData);
 
   return sql;
 }

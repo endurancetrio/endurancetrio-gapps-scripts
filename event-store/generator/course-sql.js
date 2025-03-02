@@ -22,33 +22,19 @@
  * SOFTWARE.
  */
 
-function createDistanceTableScript(spreadsheet) {
-  const distanceData = getDistanceDataFromSpreadsheet(spreadsheet);
+/**
+ * Creates the SQL script to insert the course data from the given spreadsheet into an SQL database table.
+ *
+ * @param {Spreadsheet} spreadsheet the given spreadsheet
+ *
+ * @returns The SQL script to insert the course data from the given spreadsheet into an SQL database table
+ */
+function createCourseTableScript(spreadsheet) {
+  const courseData = getCourseDataFromSpreadsheet(spreadsheet);
 
-  let sql = `-- ${SCHEMA}.${TABLE_DISTANCE} table\n`;
-  sql += '-- ----------------------------\n';
-  if (distanceData.length === 0) {
-    sql += `-- No data found in the ${TABLE_DISTANCE} table\n\n`;
-    return sql;
-  }
-
-  const columns = Object.keys(distanceData[0]);
-
-  distanceData.forEach((row) => {
-    const values = columns.map((column) => {
-      const value = row[column];
-
-      if (value === null || value === undefined) {
-        return '';
-      } else if (typeof value === 'string') {
-        return `'${value.replace(/'/g, "''")}'`;
-      } else {
-        return value;
-      }
-    });
-
-    sql += `INSERT INTO ${SCHEMA}.${TABLE_DISTANCE} (${columns.join(', ')}) VALUES (${values.join(', ')});\n`;
-  });
+  let sql = `-- ${SCHEMA}.${TABLE_COURSE} table\n`;
+  sql += '-- --------------------------\n';
+  sql += createSqlScriptToInsertTableData(SCHEMA, TABLE_COURSE, courseData);
 
   return sql;
 }

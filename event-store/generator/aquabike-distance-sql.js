@@ -22,12 +22,19 @@
  * SOFTWARE.
  */
 
-function createTriathlonBasedRaceTableScript(spreadsheet) {
-  const data = getTriathlonBasedRaceDataFromSpreadsheet(spreadsheet);
+/**
+ * Creates the SQL script to insert the aquabike_distance data from the given spreadsheet into an SQL database table.
+ *
+ * @param {Spreadsheet} spreadsheet the given spreadsheet
+ *
+ * @returns The SQL script to insert the aquabike_distance data from the given spreadsheet into an SQL database table
+ */
+function createAquabikeDistanceTableScript(spreadsheet) {
+  const aquabikeDistanceData = getAquabikeDistanceDataFromSpreadsheet(spreadsheet);
 
-  let sql = `-- ${SCHEMA}.${TABLE_TRIATHLON_BASED_RACE} table\n`;
-  sql += '-- ----------------------------------------\n';
-  sql += createSqlScriptToInsertTableData(SCHEMA, TABLE_TRIATHLON_BASED_RACE, data);
+  let sql = `-- ${SCHEMA}.${TABLE_AQUABIKE_DISTANCE} table\n`;
+  sql += '-- -------------------------------------\n';
+  sql += createSqlScriptToInsertTableData(SCHEMA, TABLE_AQUABIKE_DISTANCE, aquabikeDistanceData);
 
   return sql;
 }
