@@ -22,6 +22,13 @@
  * SOFTWARE.
  */
 
+/**
+ * Gets the data from the triathlon_based_race table included in the given spreadsheet.
+ *
+ * @param {Spreadsheet} spreadsheet the given spreadsheet
+ *
+ * @returns the data from the triathlon_based_race table included in the given spreadsheet
+ */
 function getTriathlonBasedRaceDataFromSpreadsheet(spreadsheet) {
   const tableTriathlonBasedRace = spreadsheet
     .getRangeByName(RANGE_TRIATHLON_BASED_RACE)

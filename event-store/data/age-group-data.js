@@ -22,6 +22,13 @@
  * SOFTWARE.
  */
 
+/**
+ * Gets the data from the age_group table included in the given spreadsheet.
+ *
+ * @param {Spreadsheet} spreadsheet the given spreadsheet
+ *
+ * @returns the data from the age_group table included in the given spreadsheet
+ */
 function getAgeGroupDataFromSpreadsheet(spreadsheet) {
   const tableAgeGroup = spreadsheet
     .getRangeByName(RANGE_AGE_GROUP)
@@ -36,12 +43,16 @@ function getAgeGroupDataFromSpreadsheet(spreadsheet) {
   const ageGroups = [];
   tableAgeGroup.forEach((record) => {
     const ageGroup = {};
-    tableAgeGroupFields.map((key, columnIndex) => {
+    tableAgeGroupFields.forEach((key, columnIndex) => {
       if (returnedFields.includes(key)) {
-        if (key === 'id' || key === 'event_id' || key === 'distance_id') {
-          ageGroup[key] = parseInt(record[columnIndex], 10);
+        const value = record[columnIndex].trim();
+
+        if (value === '') {
+          ageGroup[key] = null;
+        } else if (['id', 'event_id', 'distance_id'].includes(key)) {
+          ageGroup[key] = parseInt(value, 10);
         } else {
-          ageGroup[key] = String(record[columnIndex]);
+          ageGroup[key] = value;
         }
       }
     });

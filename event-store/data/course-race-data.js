@@ -22,6 +22,13 @@
  * SOFTWARE.
  */
 
+/**
+ * Gets the data from the course_race table included in the given spreadsheet.
+ *
+ * @param {Spreadsheet} spreadsheet the given spreadsheet
+ *
+ * @returns the data from the course_race table included in the given spreadsheet
+ */
 function getCourseRaceDataFromSpreadsheet(spreadsheet) {
   const tableCourseRace = spreadsheet
     .getRangeByName(RANGE_COURSE_RACE)
@@ -37,8 +44,11 @@ function getCourseRaceDataFromSpreadsheet(spreadsheet) {
   tableCourseRace.forEach((record) => {
     const courseRace = {};
     tableCourseRaceFields.forEach((key, columnIndex) => {
-      if (returnedFields.includes(key)) {
-        const value = record[columnIndex].trim();
+      const value = record[columnIndex].trim();
+
+      if (value === '') {
+        courseRace[key] = null;
+      } else if (returnedFields.includes(key)) {
         courseRace[key] = parseInt(value, 10);
       }
     });

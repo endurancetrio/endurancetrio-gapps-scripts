@@ -22,6 +22,13 @@
  * SOFTWARE.
  */
 
+/**
+ * Gets the data from the event_file table included in the given spreadsheet.
+ *
+ * @param {Spreadsheet} spreadsheet the given spreadsheet
+ *
+ * @returns the data from the event_file table included in the given spreadsheet
+ */
 function getEventFileDataFromSpreadsheet(spreadsheet) {
   const eventFileTable = spreadsheet
     .getRangeByName(RANGE_EVENT_FILE)
@@ -36,20 +43,18 @@ function getEventFileDataFromSpreadsheet(spreadsheet) {
   const eventFiles = [];
   eventFileTable.forEach((record) => {
     const eventFile = {};
-    tableEventFileFields.map((key, columnIndex) => {
+    tableEventFileFields.forEach((key, columnIndex) => {
       if (returnedFields.includes(key)) {
-        switch (key) {
-          case 'id':
-          case 'event_id':
-          case 'revision':
-            eventFile[key] = parseInt(record[columnIndex], 10);
-            break;
-          case 'is_active':
-            eventFile[key] = getBoolean(record[columnIndex]);
-            break;
-          default:
-            eventFile[key] = String(record[columnIndex]);
-            break;
+        const value = record[columnIndex].trim();
+
+        if (value === '') {
+          eventFile[key] = null;
+        } else if (['id', 'event_id', 'revision'].includes(key)) {
+          eventFile[key] = parseInt(value, 10);
+        } else if ('is_active' === key) {
+          eventFile[key] = getBoolean(value);
+        } else {
+          eventFile[key] = value;
         }
       }
     });

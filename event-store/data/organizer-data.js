@@ -22,6 +22,13 @@
  * SOFTWARE.
  */
 
+/**
+ * Gets the data from the organizer table included in the given spreadsheet.
+ *
+ * @param {Spreadsheet} spreadsheet the given spreadsheet
+ *
+ * @returns the data from the organizer table included in the given spreadsheet
+ */
 function getOrganizerDataFromSpreadsheet(spreadsheet) {
   const organizerTable = spreadsheet
     .getRangeByName(RANGE_ORGANIZER)
@@ -36,12 +43,16 @@ function getOrganizerDataFromSpreadsheet(spreadsheet) {
   const organizers = [];
   organizerTable.forEach((record) => {
     const organizer = {};
-    tableOrganizerFields.map((key, columnIndex) => {
+    tableOrganizerFields.forEach((key, columnIndex) => {
       if (returnedFields.includes(key)) {
-        if (key === 'id') {
-          organizer[key] = parseInt(record[columnIndex], 10);
+        const value = record[columnIndex].trim();
+
+        if (value === '') {
+          organizers[key] = null;
+        } else if (key === 'id') {
+          organizer[key] = parseInt(value, 10);
         } else {
-          organizer[key] = String(record[columnIndex]);
+          organizer[key] = value;
         }
       }
     });

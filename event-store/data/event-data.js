@@ -22,6 +22,13 @@
  * SOFTWARE.
  */
 
+/**
+ * Gets the data from the event table included in the given spreadsheet.
+ *
+ * @param {Spreadsheet} spreadsheet the given spreadsheet
+ *
+ * @returns the data from the event table included in the given spreadsheet
+ */
 function getEventDataFromSpreadsheet(spreadsheet) {
   const tableEvent = spreadsheet
     .getRangeByName(RANGE_EVENT)
@@ -36,12 +43,16 @@ function getEventDataFromSpreadsheet(spreadsheet) {
   const events = [];
   tableEvent.forEach((record) => {
     const event = {};
-    tableEventFields.map((key, columnIndex) => {
+    tableEventFields.forEach((key, columnIndex) => {
       if (returnedFields.includes(key)) {
-        if (key === 'id') {
-          event[key] = parseInt(record[columnIndex], 10);
+        const value = record[columnIndex].trim();
+
+        if (value === '') {
+          event[key] = null;
+        } else if (key === 'id') {
+          event[key] = parseInt(value, 10);
         } else {
-          event[key] = String(record[columnIndex]);
+          event[key] = value;
         }
       }
     });

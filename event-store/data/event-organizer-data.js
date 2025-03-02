@@ -22,6 +22,13 @@
  * SOFTWARE.
  */
 
+/**
+ * Gets the data from the event_organizer table included in the given spreadsheet.
+ *
+ * @param {Spreadsheet} spreadsheet the given spreadsheet
+ *
+ * @returns the data from the event_organizer table included in the given spreadsheet
+ */
 function getEventOrganizerDataFromSpreadsheet(spreadsheet) {
   const eventOrganizerTable = spreadsheet
     .getRangeByName(RANGE_EVENT_ORGANIZER)
@@ -36,9 +43,13 @@ function getEventOrganizerDataFromSpreadsheet(spreadsheet) {
   const eventOrganizers = [];
   eventOrganizerTable.forEach((record) => {
     const eventOrganizer = {};
-    tableEventOrganizerFields.map((key, columnIndex) => {
-      if (returnedFields.includes(key)) {
-        eventOrganizer[key] = parseInt(record[columnIndex], 10);
+    tableEventOrganizerFields.forEach((key, columnIndex) => {
+      const value = record[columnIndex].trim();
+
+      if (value === '') {
+        eventOrganizer[key] = null;
+      } else if (returnedFields.includes(key)) {
+        eventOrganizer[key] = parseInt(value, 10);
       }
     });
 

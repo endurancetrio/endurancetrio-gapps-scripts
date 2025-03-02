@@ -22,6 +22,13 @@
  * SOFTWARE.
  */
 
+/**
+ * Gets the data from the race table included in the given spreadsheet.
+ *
+ * @param {Spreadsheet} spreadsheet the given spreadsheet
+ *
+ * @returns the data from the race table included in the given spreadsheet
+ */
 function getRaceDataFromSpreadsheet(spreadsheet) {
   const tableRace = spreadsheet
     .getRangeByName(RANGE_RACE)

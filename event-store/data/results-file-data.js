@@ -22,6 +22,13 @@
  * SOFTWARE.
  */
 
+/**
+ * Gets the data from the results_file table included in the given spreadsheet.
+ *
+ * @param {Spreadsheet} spreadsheet the given spreadsheet
+ *
+ * @returns the data from the results_file table included in the given spreadsheet
+ */
 function getResultsFileDataFromSpreadsheet(spreadsheet) {
   const tableResultsFile = spreadsheet
     .getRangeByName(RANGE_RESULTS_FILE)

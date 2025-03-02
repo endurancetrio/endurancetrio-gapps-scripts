@@ -22,6 +22,13 @@
  * SOFTWARE.
  */
 
+/**
+ * Gets the data from the triathlon_distance table included in the given spreadsheet.
+ *
+ * @param {Spreadsheet} spreadsheet the given spreadsheet
+ *
+ * @returns the data from the triathlon_distance table included in the given spreadsheet
+ */
 function getTriathlonDistanceDataFromSpreadsheet(spreadsheet) {
   const tableTriathlonDistance = spreadsheet
     .getRangeByName(RANGE_TRIATHLON_DISTANCE)
@@ -36,9 +43,15 @@ function getTriathlonDistanceDataFromSpreadsheet(spreadsheet) {
   const triathlonDistances = [];
   tableTriathlonDistance.forEach((record) => {
     const triathlonDistance = {};
-    tableTriathlonDistanceFields.map((key, columnIndex) => {
+    tableTriathlonDistanceFields.forEach((key, columnIndex) => {
       if (returnedFields.includes(key)) {
-        triathlonDistance[key] = parseInt(record[columnIndex], 10);
+        const value = record[columnIndex].trim();
+
+        if (value === '') {
+          triathlonDistance[key] = null;
+        } else {
+          triathlonDistance[key] = parseInt(value, 10);
+        }
       }
     });
 

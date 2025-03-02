@@ -22,6 +22,13 @@
  * SOFTWARE.
  */
 
+/**
+ * Gets the data from the aquabike_distance table included in the given spreadsheet.
+ *
+ * @param {Spreadsheet} spreadsheet the given spreadsheet
+ *
+ * @returns the data from the aquabike_distance table included in the given spreadsheet
+ */
 function getAquabikeDistanceDataFromSpreadsheet(spreadsheet) {
   const tableAquabikeDistance = spreadsheet
     .getRangeByName(RANGE_AQUABIKE_DISTANCE)
@@ -36,9 +43,13 @@ function getAquabikeDistanceDataFromSpreadsheet(spreadsheet) {
   const aquabikeDistances = [];
   tableAquabikeDistance.forEach((record) => {
     const aquabikeDistance = {};
-    tableAquabikeDistanceFields.map((key, columnIndex) => {
-      if (returnedFields.includes(key)) {
-        aquabikeDistance[key] = parseInt(record[columnIndex], 10);
+    tableAquabikeDistanceFields.forEach((key, columnIndex) => {
+      const value = record[columnIndex].trim();
+
+      if (value === '') {
+        aquabikeDistance[key] = null;
+      } else if (returnedFields.includes(key)) {
+        aquabikeDistance[key] = parseInt(value, 10);
       }
     });
 

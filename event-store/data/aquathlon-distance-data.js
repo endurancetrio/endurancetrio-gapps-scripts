@@ -22,6 +22,13 @@
  * SOFTWARE.
  */
 
+/**
+ * Gets the data from the aquathlon_distance table included in the given spreadsheet.
+ *
+ * @param {Spreadsheet} spreadsheet the given spreadsheet
+ *
+ * @returns the data from the aquathlon_distance table included in the given spreadsheet
+ */
 function getAquathlonDistanceDataFromSpreadsheet(spreadsheet) {
   const tableAquathlonDistance = spreadsheet
     .getRangeByName(RANGE_AQUATHLON_DISTANCE)
@@ -36,9 +43,13 @@ function getAquathlonDistanceDataFromSpreadsheet(spreadsheet) {
   const aquathlonDistances = [];
   tableAquathlonDistance.forEach((record) => {
     const aquathlonDistance = {};
-    tableAquathlonDistanceFields.map((key, columnIndex) => {
-      if (returnedFields.includes(key)) {
-        aquathlonDistance[key] = parseInt(record[columnIndex], 10);
+    tableAquathlonDistanceFields.forEach((key, columnIndex) => {
+      const value = record[columnIndex].trim();
+
+      if (value === '') {
+        aquathlonDistance[key] = null;
+      } else if (returnedFields.includes(key)) {
+        aquathlonDistance[key] = parseInt(value, 10);
       }
     });
 

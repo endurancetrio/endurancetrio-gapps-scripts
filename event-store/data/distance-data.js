@@ -22,6 +22,13 @@
  * SOFTWARE.
  */
 
+/**
+ * Gets the data from the distance table included in the given spreadsheet.
+ *
+ * @param {Spreadsheet} spreadsheet the given spreadsheet
+ *
+ * @returns the data from the distance table included in the given spreadsheet
+ */
 function getDistanceDataFromSpreadsheet(spreadsheet) {
   const tableDistance = spreadsheet
     .getRangeByName(RANGE_DISTANCE)
@@ -36,12 +43,16 @@ function getDistanceDataFromSpreadsheet(spreadsheet) {
   const distances = [];
   tableDistance.forEach((record) => {
     const distance = {};
-    tableDistanceFields.map((key, columnIndex) => {
+    tableDistanceFields.forEach((key, columnIndex) => {
       if (returnedFields.includes(key)) {
-        if (key === 'id') {
-          distance[key] = parseInt(record[columnIndex], 10);
+        const value = record[columnIndex].trim();
+
+        if (value === '') {
+          distance[key] = null;
+        } else if (key === 'id') {
+          distance[key] = parseInt(value, 10);
         } else {
-          distance[key] = String(record[columnIndex]);
+          distance[key] = value;
         }
       }
     });

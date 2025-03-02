@@ -22,6 +22,13 @@
  * SOFTWARE.
  */
 
+/**
+ * Gets the data from the race_hierarchy table included in the given spreadsheet.
+ *
+ * @param {Spreadsheet} spreadsheet the given spreadsheet
+ *
+ * @returns the data from the race_hierarchy table included in the given spreadsheet
+ */
 function getRaceHierarchyDataFromSpreadsheet(spreadsheet) {
   const tableRaceHierarchy = spreadsheet
     .getRangeByName(RANGE_RACE_HIERARCHY)
@@ -37,8 +44,11 @@ function getRaceHierarchyDataFromSpreadsheet(spreadsheet) {
   tableRaceHierarchy.forEach((record) => {
     const raceHierarchy = {};
     tableRaceHierarchyFields.forEach((key, columnIndex) => {
-      if (returnedFields.includes(key)) {
-        const value = record[columnIndex].trim();
+      const value = record[columnIndex].trim();
+
+      if (value === '') {
+        raceHierarchy[key] = null;
+      } else if (returnedFields.includes(key)) {
         raceHierarchy[key] = parseInt(value, 10);
       }
     });

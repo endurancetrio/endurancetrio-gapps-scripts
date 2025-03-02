@@ -22,6 +22,13 @@
  * SOFTWARE.
  */
 
+/**
+ * Gets the data from the duathlon_distance table included in the given spreadsheet.
+ *
+ * @param {Spreadsheet} spreadsheet the given spreadsheet
+ *
+ * @returns the data from the duathlon_distance table included in the given spreadsheet
+ */
 function getDuathlonDistanceDataFromSpreadsheet(spreadsheet) {
   const tableDuathlonDistance = spreadsheet
     .getRangeByName(RANGE_DUATHLON_DISTANCE)
@@ -44,9 +51,13 @@ function getDuathlonDistanceDataFromSpreadsheet(spreadsheet) {
   const duathlonDistances = [];
   tableDuathlonDistance.forEach((record) => {
     const duathlonDistance = {};
-    tableDuathlonDistanceFields.map((key, columnIndex) => {
-      if (returnedFields.includes(key)) {
-        duathlonDistance[key] = parseInt(record[columnIndex], 10);
+    tableDuathlonDistanceFields.forEach((key, columnIndex) => {
+      const value = record[columnIndex].trim();
+
+      if (value === '') {
+        duathlonDistance[key] = null;
+      } else if (returnedFields.includes(key)) {
+        duathlonDistance[key] = parseInt(value, 10);
       }
     });
 
