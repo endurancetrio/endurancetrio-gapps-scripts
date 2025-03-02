@@ -22,6 +22,11 @@
  * SOFTWARE.
  */
 
+/**
+ * Executes the method to save the SQL script to insert the data from the given spreadsheet in an SQL database.
+ *
+ * @param {String} spreadsheetId the id of the spreadsheet with the Event's data
+ */
 function generateSqlScriptFromSpreadsheet(spreadsheetId) {
   saveSqlScript(spreadsheetId);
 }
