@@ -22,6 +22,15 @@
  * SOFTWARE.
  */
 
+/**
+ * Generates the SQL script to insert the given data into the database schema and table
+ *
+ * @param {String} schema the given database schema name
+ * @param {String} table the given database table name
+ * @param {Array} data the given data to be inserted into the table
+ *
+ * @returns the sql script to insert the data into the database table
+ */
 function createSqlScriptToInsertTableData(schema, table, data) {
   let sql = '';
   if (data.length === 0) {
