@@ -32,8 +32,8 @@ For the development of **DataCraft: HTML & JSON Wizard**, [Google Clasp](https:/
 
 To start developing **DataCraft: HTML & JSON Wizard**, clone this repository and install the required [npm](https://www.npmjs.com/) packages with the following commands:
 
-    git clone git@github.com:federacao-triatlo/data-craft-html-json-wizard.git
-    cd data-craft-html-json-wizard
+    git clone git@github.com:EnduranceCode/endurancetrio-gapps-scripts.git
+    cd endurancetrio-gapps-scripts/data-craft
     npm install
 
 To setup the connection with the [Google Apps Script](https://www.google.com/script/), copy the file [`.clasp.json.template`](./.clasp.json.template) and rename the copy as `.clasp.json`. Then define the appropriate values for the `scriptId` and `rootDir` keys.
