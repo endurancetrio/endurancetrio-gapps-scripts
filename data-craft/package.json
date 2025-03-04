@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/EnduranceCode/endurancetrio-gapps-scripts.git"
+    "url": "git+https://github.com/endurancetrio/endurancetrio-gapps-scripts.git"
   },
   "author": "Ricardo do Canto",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/EnduranceCode/endurancetrio-gapps-scripts/issues"
+    "url": "https://github.com/endurancetrio/endurancetrio-gapps-scripts/issues"
   },
-  "homepage": "https://github.com/EnduranceCode/endurancetrio-gapps-scripts/tree/master/data-craft",
+  "homepage": "https://github.com/endurancetrio/endurancetrio-gapps-scripts/tree/master/data-craft",
   "devDependencies": {
     "@google/clasp": "^2.5.0",
     "eslint": "^8.57.0",
