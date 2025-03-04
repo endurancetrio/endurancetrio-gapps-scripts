@@ -35,9 +35,11 @@ To start developing **RaceRank: Timing & Results**, follow these steps:
 1. Fork this repository by clicking the "Fork" button on the [GitHub repository](https://github.com/endurancetrio/endurancetrio-gapps-scripts);
 2. Clone your forked repository to your local machine and install the required [npm](https://www.npmjs.com/) packages, replace the ***{LABEL}*** in the below command as appropriate and execute it:
 
-    git clone <git@github.com>:{GITHUB_USERNAME}/endurancetrio-gapps-scripts.git
-    cd endurancetrio-gapps-scripts/race-rank
-    npm install
+```bash
+git clone git@github.com:{GITHUB_USERNAME}/endurancetrio-gapps-scripts.git
+cd endurancetrio-gapps-scripts/data-craft
+npm install
+```
 
 > **Label Definition**
 >
@@ -57,7 +59,9 @@ Then, enable the Google Apps Script on the [user settings page](https://script.g
 
 To enable the connection with the [Google Apps Script](https://www.google.com/script/), it's necessary to sign into the Google account where the [Apps Script](https://www.google.com/script/) project are stored. It will be done with the following command:
 
-    npm run login
+```bash
+npm run login
+```
 
 The above command executes a script from [`package.json`](./package.json) file, opening a browser window for Google OAuth authentication. Follow these steps:
 
@@ -69,11 +73,15 @@ After granting permissions, the [Google Clasp](https://github.com/google/clasp) 
 
 To pull the code from the online project, execute the following command:
 
-    npm run pull
+```bash
+npm run pull
+```
 
 To push your local code changes to the online project, execute the following command:
 
-    npm run push
+```bash
+npm run push
+```
 
 #### Very important notice
 
