@@ -10,7 +10,7 @@ The folder [`data-craft`](./data-craft/) contains the **DataCraft: HTML & JSON W
 
 ### EventStore
 
-The folder [`event-store`](./event-store) contains the **EventStore** code, a [Google Apps Script](https://www.google.com/script/) for a for a spreadsheet that manages manage endurance sport events.
+The folder [`event-store`](./event-store) contains the **EventStore** code, a [Google Apps Script](https://www.google.com/script/) to be used with a spreadsheet that manages the data of endurance sport events.
 
 ### RaceRank: Timing & Results
 

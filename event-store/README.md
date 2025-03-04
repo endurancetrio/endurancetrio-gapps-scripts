@@ -12,7 +12,7 @@
 
 ## Introduction
 
-**EventStore** is a [Google Apps Script](https://www.google.com/script/) for a spreadsheet that manages manage endurance sport events.
+**EventStore** is a [Google Apps Script](https://www.google.com/script/) to be used with a spreadsheet that manages the data of endurance sport events.
 
 ## Development
 
@@ -33,7 +33,7 @@ For the development of **EventStore**, [Google Clasp](https://github.com/google/
 To start developing **EventStore**, clone this repository and install the required [npm](https://www.npmjs.com/) packages with the following commands:
 
     git clone git@github.com:EnduranceCode/endurancetrio-gapps-scripts.git
-    cd event-store
+    cd endurancetrio-gapps-scripts/event-store
     npm install
 
 To setup the connection with the [Google Apps Script](https://www.google.com/script/), copy the file [`.clasp.json.template`](./.clasp.json.template) and rename the copy as `.clasp.json`. Then define the appropriate values for the `scriptId` and `rootDir` keys.
