@@ -1,7 +1,7 @@
 {
   "name": "race-rank-timing-results",
-  "version": "2.4.1",
-  "description": "Google Apps Script for a spreadsheet to manage timing and generate classifications of the competitions promoted by the Portuguese Triathlon Federation",
+  "version": "2.5.0",
+  "description": "Google Apps Script for a spreadsheet to manage timing and generate classifications for sports competitions",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -12,16 +12,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/federacao-triatlo/race-rank-timing-results.git"
+    "url": "git+https://github.com/EnduranceCode/endurancetrio-gapps-scripts.git"
   },
   "author": "Ricardo do Canto",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/federacao-triatlo/race-rank-timing-results/issues"
+    "url": "https://github.com/EnduranceCode/endurancetrio-gapps-scripts/issues"
   },
-  "homepage": "https://github.com/federacao-triatlo/race-rank-timing-results",
+  "homepage": "https://github.com/EnduranceCode/endurancetrio-gapps-scripts/tree/master/race-rank",
   "devDependencies": {
-    "@google/clasp": "^2.4.2",
+    "@google/clasp": "^2.5.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",

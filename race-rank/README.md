@@ -32,8 +32,8 @@ For the development of **RaceRank: Timing & Results**, [Google Clasp](https://gi
 
 To start developing **RaceRank: Timing & Results**, clone this repository and install the required [npm](https://www.npmjs.com/) packages with the following commands:
 
-    git clone git@github.com:federacao-triatlo/race-rank-timing-results.git
-    cd race-rank-timing-results
+    git clone git@github.com:EnduranceCode/endurancetrio-gapps-scripts.git
+    cd endurancetrio-gapps-scripts/race-rank
     npm install
 
 To setup the connection with the [Google Apps Script](https://www.google.com/script/), copy the file [`.clasp.json.template`](./.clasp.json.template) and rename the copy as `.clasp.json`. Then define the appropriate values for the `scriptId` and `rootDir` keys.
