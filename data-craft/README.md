@@ -12,7 +12,7 @@
 
 ## Introduction
 
-**DataCraft: HTML & JSON Wizard** is a [Google Apps Script](https://www.google.com/script/) for a spreadsheet that generates data and code used to manage sports competitions. It was originally created for targeting the competitions promoted by the [Portuguese Triathlon Federation](https://www.federacao-triatlo.pt/), but can be used for other sports as well.
+**DataCraft: HTML & JSON Wizard** is a [Google Apps Script](https://www.google.com/script/) for a spreadsheet that generates data and code used to manage sports competitions. It was originally created targeting the competitions promoted by the [Portuguese Triathlon Federation](https://www.federacao-triatlo.pt/), but can be used for other sports as well.
 
 ## Development
 
@@ -30,11 +30,18 @@ For the development of **DataCraft: HTML & JSON Wizard**, [Google Clasp](https:/
 
 ### Installation
 
-To start developing **DataCraft: HTML & JSON Wizard**, clone this repository and install the required [npm](https://www.npmjs.com/) packages with the following commands:
+To start developing **DataCraft: HTML & JSON Wizard**, follow these steps:
 
-    git clone git@github.com:EnduranceCode/endurancetrio-gapps-scripts.git
+1. Fork this repository by clicking the "Fork" button on the [GitHub repository](https://github.com/endurancetrio/endurancetrio-gapps-scripts);
+2. Clone your forked repository to your local machine and install the required [npm](https://www.npmjs.com/) packages, replace the ***{LABEL}*** in the below command as appropriate and execute it:
+
+    git clone <git@github.com>:{GITHUB_USERNAME}/endurancetrio-gapps-scripts.git
     cd endurancetrio-gapps-scripts/data-craft
     npm install
+
+> **Label Definition**
+>
+> + **{GITHUB_USERNAME}** : Your [GitHub username](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-email-preferences/remembering-your-github-username-or-email)
 
 To setup the connection with the [Google Apps Script](https://www.google.com/script/), copy the file [`.clasp.json.template`](./.clasp.json.template) and rename the copy as `.clasp.json`. Then define the appropriate values for the `scriptId` and `rootDir` keys.
 
@@ -52,9 +59,11 @@ To enable the connection with the [Google Apps Script](https://www.google.com/sc
 
     npm run login
 
-The above command executes one of the scripts defined in the [`package.json`](./package.json) file. With its execution, a browser window or tab will open, displaying a Google OAuth consent screen. If prompted, select the Google account that you want to use to authenticate [Google Clasp](https://github.com/google/clasp).
+The above command executes a script from [`package.json`](./package.json) file, opening a browser window for Google OAuth authentication. Follow these steps:
 
-The consent screen will display the permissions that [Google Clasp](https://github.com/google/clasp) requires to access your Google account and manage your Google Apps Script projects. Review the permissions carefully to ensure that you trust the application requesting access and then click "Allow" to grant [Google Clasp](https://github.com/google/clasp) the necessary permissions.
+1. Select the Google account that you want to use to authenticate [Google Clasp](https://github.com/google/clasp);
+2. Review the requested permissions for [Google Clasp](https://github.com/google/clasp);
+3. Click **Allow** to grant access.
 
 After granting permissions, the [Google Clasp](https://github.com/google/clasp) authentication token is stored in a file named `.clasprc.json`, which is created in the user's home directory (this is a global authentication token).
 
